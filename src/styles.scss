@@ -1,1 +1,115 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color:#faf9ff !important;
+}
+
+.menu-btn .p-button {
+    background-color: transparent !important;
+    border: none !important;
+    /* Additional styles if needed */
+    .pi-align-justify:before{
+        font-size: 22px;
+    }
+}
+.img-menu{
+    width: 18rem;
+    height: 4rem;
+    img{
+        height: 4rem;
+    }
+}
+.p-sidebar-left{
+    background-color: #3c4b64 !important;
+}
+.p-sidebar .p-sidebar-header .p-sidebar-close:enabled:hover, .p-sidebar .p-sidebar-header .p-sidebar-icon:enabled:hover{
+    color: black !important;
+    border-color: transparent;
+    background: #e9ecef;
+}
+.p-sidebar .p-sidebar-header .p-sidebar-close, .p-sidebar .p-sidebar-header .p-sidebar-icon{
+    width: 2rem;
+    height: 2rem;
+    color: white !important;
+    border: 0 none;
+    background: transparent;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.menu-item-navbar{
+    color: white;
+    font-size: 25px !important;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    cursor: pointer;
+    &:hover{
+        box-shadow: inset 0 -100px 0 0 #519fd9;
+        transform: scale(0.9);
+        border-radius: 4px;
+        padding-top: 10px;
+        color: white;
+    }
+   
+}
+.p-sidebar .p-sidebar-content{
+    padding: 0px !important;
+}
+.admin-img{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    img{
+    width: 50%;
+    height: 50%;
+    }
+}
+.menu-title{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.p-sidebar-content{
+    position: relative;
+    overflow-y: auto;
+}
+.menu-footer{
+    
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 20rem;
+        font-family: monospace;
+        background-color: #333; /* Replace with your desired background color */
+        color: #fff; /* Replace with your desired text color */
+        padding: 15px;
+        text-align: center;
+      
+      
+}
+body::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+body::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(122,153,217)),
+									   color-stop(0.72, rgb(73,125,189)),
+									   color-stop(0.86, rgb(28,58,148)));
+}
+

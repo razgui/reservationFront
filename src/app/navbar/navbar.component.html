@@ -1,0 +1,86 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <!--SIDE BAR SECTION-->
+    <p-sidebar [(visible)]="display">
+        <ng-template pTemplate="header">Menu</ng-template>
+        <h2 class="menu-title"> Menu </h2>
+        <div class="admin-img">
+            <img alt="admin" src="../../assets/images/admin.png"/>
+        </div>
+        <hr style="color: white;">
+       <div class="menu-item-navbar" (click)="navigateToScreen('home')">
+        <div style="padding-right: 1rem;">
+            <img  alt="dashboard" style="width: 30px;
+            height: 30px;" src="../../assets/images/dashboard-icon.png" />
+        </div>
+        <div>
+            Dashboard
+        </div>
+       </div> 
+       <div class="menu-item-navbar" (click)="navigateToScreen('schedule')">
+        <div style="padding-right: 1rem;
+        margin-left: -5%;">
+            <img alt="schedule" style="width: 30px;
+            height: 30px;" src="../../assets/images/schedule.png" />
+        </div>
+        <div>
+            Schedule
+        </div>
+        
+       </div>
+       <div class="menu-item-navbar" (click)="navigateToScreen('patient')">
+        <div style="padding-right: 1rem;
+        margin-left: -2.8rem;">
+        <img  alt="Patient" style="height: 30px; width: 30px;" src="../../assets/images/service.png" />
+        </div>
+        <div>
+        Patient
+        </div>
+       </div>
+       <div (click)="navigateToScreen('soins')" class="menu-item-navbar">
+        <div style="padding-right: 1rem;
+        margin-left: -4rem;">
+        <img alt="medical" style="  height: 30px; width: 30px;" src="../../assets/images/medical.png" />
+        </div>
+        <div>
+            Soins
+        </div>
+  
+        </div>
+        <div (click)="navigateToScreen('aboutus')" class="menu-item-navbar">
+            <div style="padding-right: 1rem;
+            margin-left: -1.8rem;">
+            <img alt="medical" style="  height: 30px; width: 30px;" src="../../assets/images/aboutus.png" />
+            </div>
+            <div>
+                About us
+            </div>
+      
+            </div>
+       <div class="menu-footer">
+        <div id="copyright" style="text-align: center;">© 2023 - <span id="currentYear"></span> www.booking.com - All Rights Reserved.</div>
+
+       </div>
+    </p-sidebar>
+      <!--SIDE BAR SECTION-->
+        <!--NAV BAR SECTION-->
+    <div class="menu-btn">
+        <p-button type="text" (click)="display = true" icon="pi pi-align-justify" ></p-button>
+    </div>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display: flex !important;
+    flex-direction: row;
+    justify-content: center;">
+      <div class="img-menu">
+          <img style="cursor: pointer;" (click)="navigateToScreen('home')" alt="booking" src="../../assets/images/booking.png"/>
+      </div>
+    </div>
+    <div>
+        <button class="Btn">
+            <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+            <div class="text">Logout</div>
+          </button>
+    </div>
+    
+    <!--NAV BAR SECTION-->
+  </nav>
