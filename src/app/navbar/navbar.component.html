@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
    <!--SIDE BAR SECTION-->
     <p-sidebar [(visible)]="display">
-        <ng-template pTemplate="header">Menu</ng-template>
+        <!-- <ng-template pTemplate="header">Menu</ng-template> -->
         <h2 class="menu-title"> Menu </h2>
         <div class="admin-img">
             <img alt="admin" src="../../assets/images/admin.png"/>
@@ -67,7 +67,8 @@
     <div class="menu-btn">
         <p-button type="text" (click)="display = true" icon="pi pi-align-justify" ></p-button>
     </div>
-  
+
+      
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display: flex !important;
     flex-direction: row;
     justify-content: center;">

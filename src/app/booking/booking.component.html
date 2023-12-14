@@ -1,0 +1,120 @@
+<div class="box-coaches">
+  <div class="col header">
+
+  </div>
+  <div class="col content" style="padding-bottom: 7rem">
+    <div class="demo-app">
+      
+
+      <div class="demo-app-main">
+        <full-calendar  [options]="calendarOptions">
+          <ng-template #eventContent let-arg>
+            <b>{{ arg.timeText }}</b>
+            <i>{{ arg.event.title }}</i>
+          </ng-template>
+        </full-calendar>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="dialog-cls">
+  <p-dialog
+    [(visible)]="displayAddEvent"
+    [style]="{ width: '50vw', height: '25vw' }"
+    [resizable]="true"
+  >
+    <ng-template pTemplate="header">
+      Please enter a new title for your booking
+    </ng-template>
+    <div *ngIf="reservationForm">
+      <form [formGroup]="reservationForm">
+        <div class="p-fluid p-grid p-formgrid" >
+          <!-- <div class="p-field p-col-12 p-md-12 f-cls">
+            <label for="startDate">Start Date</label>
+            <p-calendar
+              formControlName="startDate"
+              [showIcon]="true"
+              inputId="startDate"
+            ></p-calendar>
+          </div>
+          <div class="p-field p-col-12 p-md-12 f-cls">
+            <label for="endDate">End Date</label>
+            <p-calendar
+              formControlName="startDate"
+              [showIcon]="true"
+              inputId="endDate"
+            ></p-calendar>
+          </div> -->
+          <!-- <span class="p-float-label">
+            <input formControlName="description" id="float-input" pInputText />
+            <label for="float-input">Description</label>
+          </span> -->
+          <div class="p-field p-col-12 p-md-12 f-cls">
+            <span class="p-float-label">
+              <textarea
+                formControlName="description"
+                id="float-input"
+                [rows]="2"
+                [cols]="5"
+                pInputTextarea
+              ></textarea>
+              <label for="float-input">Description</label>
+            </span>
+          </div>
+          <div class="p-field p-col-12 p-md-12 f-cls">
+            <p-dropdown float-input-d  [options]="terrainList" formControlName="idTerrain" optionLabel="name" filterBy="name" [showClear]="true" placeholder="Select court">
+              <ng-template pTemplate="filter" let-options="options">
+                  <div class="flex p-3">
+                      <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                          <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                          <input type="text" pInputText placeholder="Filter"  (keyup)="options.filter($event)">
+                      </div>
+                      <!-- <button pButton icon="pi pi-times" class="ml-3" (click)="myResetFunction(options)"></button> -->
+                  </div>
+              </ng-template>
+              <ng-template pTemplate="selectedItem" let-terrain pTemplate="item">
+                  <div class="terrain-item terrain-item-value" *ngIf="reservationForm.value.idTerrain">
+                      <div>{{terrain.name}}</div>
+                  </div>
+              </ng-template>
+              <ng-template let-terrain pTemplate="item">
+                  <div class="terrain-item">
+                    <img
+                    [src]="terrain.image"
+                    style="    width: 15%;
+                    height: 0%;"
+                      class="card-img-top"
+                      alt="Court Image"
+                    />
+                     {{terrain.name}}
+                  </div>
+              </ng-template>
+          </p-dropdown>
+        
+          </div>
+        </div>
+      </form>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="ft-cls">
+        <button
+          type="reset"
+          (click)="resetDescription()"
+          class="btn btn-outline-danger"
+        >
+          Reset
+        </button>
+        &nbsp; &nbsp;
+        <button
+          type="submit"
+          class="btn btn-outline-primary"
+          (click)="saveEvent()"
+        >
+          Add Booking
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+<p-toast position="bottom-right"></p-toast>

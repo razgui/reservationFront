@@ -14,7 +14,16 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { LoaderMaskComponent } from './loader-mask/loader-mask.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BookingComponent } from './booking/booking.component';
+import {CalendarModule} from 'primeng/calendar';
+import {DialogModule} from 'primeng/dialog';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import {ToastModule} from 'primeng/toast';
+import {DropdownModule} from 'primeng/dropdown';
+import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -25,7 +34,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     SoinsComponent,
     ScheduleComponent,
     LoaderMaskComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +43,19 @@ import { AboutUsComponent } from './about-us/about-us.component';
     SidebarModule,
     BrowserAnimationsModule,
     ButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    CalendarModule,
+    FullCalendarModule,
+    DialogModule,
+    ReactiveFormsModule,
+    ToastModule,
+    DropdownModule,
+    InputTextareaModule
   ],
   providers: [
+    MessageService,
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService, 

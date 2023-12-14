@@ -6,6 +6,7 @@ body {
 .menu-btn .p-button {
     background-color: transparent !important;
     border: none !important;
+    color: black;
     /* Additional styles if needed */
     .pi-align-justify:before{
         font-size: 22px;
@@ -113,3 +114,20 @@ body::-webkit-scrollbar-thumb
 									   color-stop(0.86, rgb(28,58,148)));
 }
 
+body .dark-theme {
+    --text-color: #eee !important;
+    color:white;
+    --bkg-color: #252222;
+    background-color: #212529;
+    /* Other styles specific to dark mode */
+    height: 100vh;
+  }
+  
+  body .light-theme {
+    /* Styles for light mode if needed */
+    --text-color : #222 !important;
+    --bkg-color : #fff;
+    color:black;
+    --btn-txt-color:white;
+    height: 100vh;
+  }
