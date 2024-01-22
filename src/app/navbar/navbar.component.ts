@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -11,10 +12,14 @@ export class NavbarComponent {
   display : boolean = false
   themeMode: string = ""
   themeChecked : boolean = false
-  constructor(private router : Router){
+  constructor(private router : Router,private authService : AuthService){
 
   }
 
+  logOut(){
+    this.authService.logout()
+    this.router.navigate([''])
+  }
   navigateToScreen(event : string){
     switch(event){
       case "home" :

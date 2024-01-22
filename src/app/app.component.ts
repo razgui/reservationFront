@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     this.loading = true
     setTimeout(()=>{
       this.loading = false
-    },1000)
+    },500)
   }
   
 

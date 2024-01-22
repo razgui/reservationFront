@@ -34,6 +34,7 @@ export class AuthService {
   public logout() {
     // Clear the token from localStorage on logout
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem("currentUser")
   }
 
   public setToken(token: string) {
