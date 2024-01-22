@@ -24,7 +24,12 @@ import {DropdownModule} from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-
+import { LoginComponent } from './login/login.component';
+import {PasswordModule} from 'primeng/password';
+import {TableModule} from 'primeng/table';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ScheduleComponent,
     LoaderMaskComponent,
     AboutUsComponent,
-    BookingComponent
+    BookingComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -52,10 +59,14 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ReactiveFormsModule,
     ToastModule,
     DropdownModule,
-    InputTextareaModule
+    InputTextareaModule,
+    PasswordModule,
+    TableModule,
+    ConfirmDialogModule
   ],
   providers: [
     MessageService,
+    ConfirmationService,
     DatePipe,
     {
       provide: HTTP_INTERCEPTORS,

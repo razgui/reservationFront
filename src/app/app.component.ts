@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 
 @Component({
@@ -8,11 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'reservation';
+  currentRoute : string | undefined = ""
   loading : boolean = false
   themeMode: string = 'lightMode';
   appliedTheme : string = "lightMode"
-  constructor(){
-    
+  constructor(private router: Router,private activatedRoute: ActivatedRoute){
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      // Get the current route path
+      this.currentRoute = this.activatedRoute?.snapshot?.firstChild?.routeConfig?.path;
+      console.log('Current Route Path:', this.currentRoute);
+    });
   }
   ngOnInit(): void {
     this.loading = true

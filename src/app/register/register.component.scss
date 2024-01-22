@@ -1,0 +1,44 @@
+::ng-deep .img-fluid {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid;
+  border-radius: 7px;
+}
+::ng-deep .login-screen-cls {
+  .row {
+    padding-bottom: 0rem !important;
+  }
+}
+
+::ng-deep body {
+  background-color: #eee !important;
+}
+::ng-deep .password{
+  border: none !important;
+  padding-left: 0rem !important;
+  padding-right: 0rem !important;
+  .p-password{
+    width: 100% !important;
+  }
+  .p-inputtext{
+    width: 100% !important;
+    height: 41px;
+  }
+}
+::ng-deep .btn-outline-danger{
+  width: 100%;
+}
+::ng-deep .btn-outline-primary{
+  width: 100%;
+}
+
+::ng-deep .iti input, .iti input[type=text], .iti input[type=tel]{
+  width: 100%;
+    border-radius: 3px;
+    height: 49px;
+    border: var(--bs-border-width) solid var(--bs-border-color);  
+}
+
+::ng-deep .iti{
+  display: flex !important;
+}

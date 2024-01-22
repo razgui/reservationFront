@@ -18,7 +18,7 @@ export class NavbarComponent {
   navigateToScreen(event : string){
     switch(event){
       case "home" :
-        this.router.navigate(['']);
+        this.router.navigate(['/dashboard']);
         break;
       case "patient" :
         this.router.navigate(['/patient']);

@@ -5,14 +5,19 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { SoinsComponent } from './soins/soins.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, 
-  { path: 'dashboard', component: DashboardComponent },
-  {path : 'patient' , component : PatientComponent},
-  {path : 'schedule' , component : ScheduleComponent},
-  {path : 'soins' , component : SoinsComponent},
-  {path : 'aboutus' , component : AboutUsComponent}
+  { path: '', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, 
+  { path: 'dashboard', component: DashboardComponent ,canActivate: [AuthGuard]},
+  {path : 'patient' , component : PatientComponent , canActivate: [AuthGuard]},
+  {path : 'schedule' , component : ScheduleComponent , canActivate: [AuthGuard]},
+  {path : 'soins' , component : SoinsComponent, canActivate: [AuthGuard]},
+  {path : 'aboutus' , component : AboutUsComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

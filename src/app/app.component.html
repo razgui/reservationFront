@@ -1,5 +1,5 @@
 <div [class]="appliedTheme">
     <app-loader-mask [show]="loading"></app-loader-mask>
-    <app-navbar></app-navbar>
+    <app-navbar *ngIf="currentRoute != '' && currentRoute != 'register'"></app-navbar>
     <router-outlet></router-outlet>
 </div>
