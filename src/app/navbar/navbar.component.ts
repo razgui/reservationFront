@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   display : boolean = false
+  themeMode: string = ""
+  themeChecked : boolean = false
   constructor(private router : Router){
 
   }
@@ -35,4 +38,6 @@ export class NavbarComponent {
     }
     this.display = false
   }
+
+
 }

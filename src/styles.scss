@@ -6,6 +6,7 @@ body {
 .menu-btn .p-button {
     background-color: transparent !important;
     border: none !important;
+    color: black;
     /* Additional styles if needed */
     .pi-align-justify:before{
         font-size: 22px;
@@ -115,6 +116,7 @@ body::-webkit-scrollbar-thumb
 
 .p-dialog .p-dialog-footer {
   text-align: center !important;
+    --text-color: #eee !important;
 }
 
 .error-message {

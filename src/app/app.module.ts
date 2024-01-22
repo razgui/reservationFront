@@ -14,12 +14,16 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { LoaderMaskComponent } from './loader-mask/loader-mask.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
-import { DialogModule } from 'primeng/dialog';
-import { FormsModule } from '@angular/forms';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BookingComponent } from './booking/booking.component';
+import {CalendarModule} from 'primeng/calendar';
+import {DialogModule} from 'primeng/dialog';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import {ToastModule} from 'primeng/toast';
+import {DropdownModule} from 'primeng/dropdown';
+import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 @NgModule({
@@ -32,6 +36,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ScheduleComponent,
     LoaderMaskComponent,
     AboutUsComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -40,13 +45,18 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     BrowserAnimationsModule,
     ButtonModule,
     HttpClientModule,
-    TableModule,
-    InputTextModule,
-    DialogModule,
     FormsModule,
-    ConfirmDialogModule
+    CalendarModule,
+    FullCalendarModule,
+    DialogModule,
+    ReactiveFormsModule,
+    ToastModule,
+    DropdownModule,
+    InputTextareaModule
   ],
   providers: [
+    MessageService,
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
