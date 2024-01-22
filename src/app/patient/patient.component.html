@@ -1,1 +1,134 @@
-<p>patient works!</p>
+<div class="container">
+  <h1>Patients</h1>
+  <!-- Buttons Container -->
+  <div class="buttons-container">
+    <!-- Add Patient Button -->
+    <button pButton type="button" label="Add Patient" class="add-button" (click)="showAddPatientDialog()"></button>
+    <!-- Filter Input -->
+    <div class="search-container">
+      <input type="text" [(ngModel)]="filterText" (input)="onFilterChange($event)" placeholder="Search patients..."
+        class="p-inputtext" />
+      <button pButton type="button" icon="pi pi-search" class="p-button p-button-icon"></button>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <p-table [value]="patients" [paginator]="true" [rows]="10" [responsive]="true" class="patients-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Telephone</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-patient>
+      <tr>
+        <td>{{ patient.name }}</td>
+        <td>{{ patient.lastName }}</td>
+        <td>{{ patient.mail }}</td>
+        <td>{{ patient.telephone }}</td>
+        <td>
+          <!-- Action buttons -->
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-success"
+            (click)="editPatient(patient)"></button>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+            (click)="deletePatient(patient.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+
+  <!-- Add Patient Dialog -->
+  <p-dialog header="Add New Patient" [(visible)]="displayAddDialog" [responsive]="true" [modal]="true"
+    [style]="{width: '50vw'}" (onHide)="cancelAddPatientDialog()">
+    <div class="p-fluid" ngForm>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="name">Name</label>
+        <input id="name" type="text" [(ngModel)]="newPatient.name" class="p-inputtext" required name="name"
+          #name="ngModel" />
+        <!-- Display error message if the field is required -->
+        <div *ngIf="name.hasError('required')" class="error-message">Name is required</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" type="text" [(ngModel)]="newPatient.lastName" class="p-inputtext" required name="lastName"
+          #lastName="ngModel" />
+        <!-- Display error message if the field is required -->
+        <div *ngIf="lastName.hasError('required')" class="error-message">Last Name is required</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="mail">Email</label>
+        <input id="mail" type="email" [(ngModel)]="newPatient.mail" class="p-inputtext" required
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" name="mail" #mail="ngModel" />
+        <!-- Display error messages for required and pattern validation -->
+        <div *ngIf="mail.hasError('required')" class="error-message">Email is required</div>
+        <div *ngIf="mail.hasError('pattern')" class="error-message">Enter a valid email address</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="telephone">Telephone</label>
+        <input id="telephone" type="tel" [(ngModel)]="newPatient.telephone" class="p-inputtext" pattern="[0-9]{8}"
+          required name="telephone" #telephone="ngModel" />
+        <!-- Display error messages for required and pattern validation -->
+        <div *ngIf="telephone.hasError('required')" class="error-message">Telephone is required</div>
+        <div *ngIf="telephone.hasError('pattern')" class="error-message">Enter a valid 8-digit telephone number</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem; text-align: left;">
+        <button type="button" class="btn btn-primary" (click)="saveNewPatient()"
+          [disabled]="!name.valid || !lastName.valid || !mail.valid || !telephone.valid">Save</button>
+        <!-- Disable the button if any field is not valid -->
+      </div>
+    </div>
+  </p-dialog>
+
+
+
+
+  <!-- Edit Patient Dialog -->
+<p-dialog header="Edit Patient" [(visible)]="displayEditDialog" [responsive]="true" [modal]="true" [style]="{width: '50vw'}" (onHide)="cancelEditPatientDialog()">
+  <div class="p-fluid" *ngIf="selectedPatient" ngForm>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="name">Name</label>
+      <input id="name" type="text" [(ngModel)]="selectedPatient.name" class="p-inputtext" required name="name" #name="ngModel" />
+      <!-- Display error message if the field is required -->
+      <div *ngIf="name.hasError('required')" class="error-message">Name is required</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" type="text" [(ngModel)]="selectedPatient.lastName" class="p-inputtext" required name="lastName" #lastName="ngModel" />
+      <!-- Display error message if the field is required -->
+      <div *ngIf="lastName.hasError('required')" class="error-message">Last Name is required</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="mail">Email</label>
+      <input id="mail" type="text" [(ngModel)]="selectedPatient.mail" class="p-inputtext" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" name="mail" #mail="ngModel" />
+      <!-- Display error messages for required and pattern validation -->
+      <div *ngIf="mail.hasError('required')" class="error-message">Email is required</div>
+      <div *ngIf="mail.hasError('pattern')" class="error-message">Enter a valid email address</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="telephone">Telephone</label>
+      <input id="telephone" type="tel" [(ngModel)]="selectedPatient.telephone" class="p-inputtext" pattern="[0-9]{8}" required name="telephone" #telephone="ngModel" />
+      <!-- Display error messages for required and pattern validation -->
+      <div *ngIf="telephone.hasError('required')" class="error-message">Telephone is required</div>
+      <div *ngIf="telephone.hasError('pattern')" class="error-message">Enter a valid 8-digit telephone number</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem; text-align: left;">
+      <!-- Adjusted style to move the button to the left -->
+      <button type="button" class="btn btn-primary" (click)="updatePatient()" [disabled]="!name.valid || !lastName.valid || !mail.valid || !telephone.valid">Update</button>
+      <!-- Disable the button if any field is not valid -->
+    </div>
+  </div>
+</p-dialog>
+
+
+  <p-confirmDialog></p-confirmDialog>
+
+</div>

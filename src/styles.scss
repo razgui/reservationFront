@@ -50,7 +50,7 @@ body {
         padding-top: 10px;
         color: white;
     }
-   
+
 }
 .p-sidebar .p-sidebar-content{
     padding: 0px !important;
@@ -76,7 +76,7 @@ body {
     overflow-y: auto;
 }
 .menu-footer{
-    
+
         position: fixed;
         left: 0;
         bottom: 0;
@@ -86,8 +86,8 @@ body {
         color: #fff; /* Replace with your desired text color */
         padding: 15px;
         text-align: center;
-      
-      
+
+
 }
 body::-webkit-scrollbar-track
 {
@@ -111,5 +111,13 @@ body::-webkit-scrollbar-thumb
 									   color-stop(0.44, rgb(122,153,217)),
 									   color-stop(0.72, rgb(73,125,189)),
 									   color-stop(0.86, rgb(28,58,148)));
+}
+
+.p-dialog .p-dialog-footer {
+  text-align: center !important;
+}
+
+.error-message {
+  color: rgb(225, 6, 6);
 }
 

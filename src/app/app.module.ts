@@ -14,6 +14,12 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { LoaderMaskComponent } from './loader-mask/loader-mask.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { FormsModule } from '@angular/forms';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 
 @NgModule({
@@ -25,7 +31,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     SoinsComponent,
     ScheduleComponent,
     LoaderMaskComponent,
-    AboutUsComponent
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,12 +39,17 @@ import { AboutUsComponent } from './about-us/about-us.component';
     SidebarModule,
     BrowserAnimationsModule,
     ButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    TableModule,
+    InputTextModule,
+    DialogModule,
+    FormsModule,
+    ConfirmDialogModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService, 
+      useClass: InterceptorService,
       multi: true
     }
   ],

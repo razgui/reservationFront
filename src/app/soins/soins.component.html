@@ -1,1 +1,130 @@
-<p>soins works!</p>
+<div class="container">
+  <h1>Soins</h1>
+  <!-- Buttons Container -->
+  <div class="buttons-container">
+    <!-- Add Soin Button -->
+    <button pButton type="button" label="Add Soin" class="add-button" (click)="showAddSoinDialog()"></button>
+    <!-- Filter Input -->
+    <div class="search-container">
+      <input type="text" [(ngModel)]="filterText" (input)="onFilterChange($event)" placeholder="Search Soins..."
+        class="p-inputtext" />
+      <button pButton type="button" icon="pi pi-search" class="p-button p-button-icon"></button>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <p-table [value]="soins" [paginator]="true" [rows]="10" [responsive]="true" class="patients-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-soin>
+      <tr>
+        <td>{{ soin.id }}</td>
+        <td>{{ soin.name }}</td>
+        <td>{{ soin.price }}</td>
+        <td>{{ soin.description }}</td>
+        <td>
+          <!-- Action buttons -->
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-success"
+            (click)="editSoin(soin)"></button>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+            (click)="deleteSoin(soin.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+
+  <!-- Add Patient Dialog -->
+  <p-dialog header="Add New Soin" [(visible)]="displayAddDialog" [responsive]="true" [modal]="true"
+    [style]="{width: '50vw'}" (onHide)="cancelAddSoinDialog()">
+    <div class="p-fluid" ngForm>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="id">Id</label>
+        <input id="id" type="text" [(ngModel)]="newSoin.id" class="p-inputtext" required name="id"
+          #id="ngModel" />
+        <!-- Display error message if the field is required -->
+        <div *ngIf="id.hasError('required')" class="error-message">Id is required</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="name">Name</label>
+        <input id="name" type="text" [(ngModel)]="newSoin.name" class="p-inputtext" required name="name"
+          #name="ngModel" />
+        <!-- Display error message if the field is required -->
+        <div *ngIf="name.hasError('required')" class="error-message">Name is required</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="price">Price</label>
+        <input id="price" type="price" [(ngModel)]="newSoin.price" class="p-inputtext" required
+               name="price" #price="ngModel" />
+        <!-- Display error messages for required and pattern validation -->
+        <div *ngIf="price.hasError('required')" class="error-message">Price is required</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem;">
+        <label for="description">Description</label>
+        <input id="description" type="description" [(ngModel)]="newSoin.description" class="p-inputtext"
+          required name="description" #description="ngModel" />
+        <!-- Display error messages for required and pattern validation -->
+        <div *ngIf="description.hasError('required')" class="error-message">Description is required</div>
+      </div>
+      <div class="p-field" style="margin-bottom: 1rem; text-align: left;">
+        <button type="button" class="btn btn-primary" (click)="saveNewSoin()"
+          [disabled]="!id.valid || !name.valid || !price.valid || !description.valid">Save</button>
+        <!-- Disable the button if any field is not valid -->
+      </div>
+    </div>
+  </p-dialog>
+
+
+
+
+  <!-- Edit Patient Dialog -->
+<p-dialog header="Edit Soin" [(visible)]="displayEditDialog" [responsive]="true" [modal]="true" [style]="{width: '50vw'}" (onHide)="cancelEditSoinDialog()">
+  <div class="p-fluid" *ngIf="selectedSoin" ngForm>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="id">Id</label>
+      <input id="id" type="text" [(ngModel)]="selectedSoin.id" class="p-inputtext" required name="id" #id="ngModel" />
+      <!-- Display error message if the field is required -->
+      <div *ngIf="id.hasError('required')" class="error-message">id is required</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="name">Name</label>
+      <input id="name" type="text" [(ngModel)]="selectedSoin.name" class="p-inputtext" required name="name" #name="ngModel" />
+      <!-- Display error message if the field is required -->
+      <div *ngIf="name.hasError('required')" class="error-message">Name is required</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="price">Price</label>
+      <input id="price" type="text" [(ngModel)]="selectedSoin.price" class="p-inputtext" required name="price" #price="ngModel" />
+      <!-- Display error messages for required and pattern validation -->
+      <div *ngIf="price.hasError('required')" class="error-message">price is required</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem;">
+      <label for="description">Description</label>
+      <input id="description" type="tel" [(ngModel)]="selectedSoin.description" class="p-inputtext"  required name="description" #description="ngModel" />
+      <!-- Display error messages for required and pattern validation -->
+      <div *ngIf="description.hasError('required')" class="error-message">Description is required</div>
+    </div>
+    <div class="p-field" style="margin-bottom: 1rem; text-align: left;">
+      <!-- Adjusted style to move the button to the left -->
+      <button type="button" class="btn btn-primary" (click)="updateSoin()" [disabled]="!id.valid || !name.valid || !price.valid || !description.valid">Update</button>
+      <!-- Disable the button if any field is not valid -->
+    </div>
+  </div>
+</p-dialog>
+
+
+  <p-confirmDialog></p-confirmDialog>
+
+</div>
