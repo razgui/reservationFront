@@ -18,13 +18,18 @@ export class InterceptorService implements HttpInterceptor {
     this.loaderService.setLoadingState(true)
     // Get auth token
     const token = this.authService.getToken();
-
+    let authReq ;
     //Clone the request and add the Authorization header with the token
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    if(token != null){
+       authReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }else{
+       authReq = req.clone({
+      });
+    }
     
 
     // Pass the cloned request instead of the original request to the next handler
