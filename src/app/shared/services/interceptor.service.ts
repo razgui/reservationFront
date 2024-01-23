@@ -28,7 +28,7 @@ export class InterceptorService implements HttpInterceptor {
     
 
     // Pass the cloned request instead of the original request to the next handler
-    return next.handle(req.clone()).pipe(
+    return next.handle(authReq.clone()).pipe(
       finalize(()=> this.loaderService.setLoadingState(true))
     );
   }

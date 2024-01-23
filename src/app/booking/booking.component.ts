@@ -10,6 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
+import { PatientDTO } from '../models/patient.dto';
+import { PatientService } from '../services/patient.service';
+import { ReservationDTO } from '../models/reservation.model';
+import { ReservationService } from '../services/reservation.service';
+
 
 @Component({
   selector: 'app-booking',
@@ -18,11 +23,12 @@ import { DatePipe } from '@angular/common';
 })
 export class BookingComponent implements OnInit {
   displayAddEvent: boolean = false;
-  calendarVisible = true;
+  calendarVisible = false;
   bookingDescription: string | undefined;
   terrainList: any[] = [];
   calendarOptions: CalendarOptions | undefined;
   currentEvents: EventApi[] = [];
+  patientList: PatientDTO[] = []
   dateInformation: DateSelectArg | undefined;
   reservations: any[] = [];
   reservationForm: FormGroup | undefined;
@@ -34,129 +40,87 @@ export class BookingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizer,
     private messageService: MessageService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private patientService: PatientService,
+    private reservationService: ReservationService,
   ) {
-    // this.terrainService.getAllTerrains().subscribe((res) => {
-    //   res.forEach((baseImage) => {
-    //     let objectURL = 'data:image/jpeg;base64,' + baseImage.image;
-    //     this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    //     baseImage.image = this.thumbnail;
-    //   });
-    //   this.terrainList = res;
-    // });
     this.loadReservations();
-
     this.createForm();
-    // this.userService
-    //   .getUserByUsername(localStorage.getItem('currentUser'))
-    //   .subscribe((cuser) => {
-    //     this.currentUser = cuser;
-    //   });
+    this.calendarOptions = {
+      plugins: [
+        interactionPlugin,
+        dayGridPlugin,
+        timeGridPlugin,
+        listPlugin,
+      ],
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'today',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+      },
+
+      initialView: 'dayGridMonth',
+      initialEvents: this.eventList,
+      // eventColor : this.getRandomColor(),
+      weekends: true,
+      editable: true,
+      selectable: true,
+      selectMirror: true,
+      dayMaxEvents: true,
+      select: this.handleDateSelect.bind(this),
+      eventClick: this.handleEventClick.bind(this),
+      eventsSet: this.handleEvents.bind(this),
+
+    };
   }
   ngOnInit(): void {
-     this.calendarOptions = {
-          plugins: [
-            interactionPlugin,
-            dayGridPlugin,
-            timeGridPlugin,
-            listPlugin,
-          ],
-          headerToolbar: {
-            left: 'prev,next',
-            center: 'today',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
-          },
+    this.patientService.getPatients().subscribe(res => {
+      this.patientList = res
+      console.log(this.patientList)
+    })
 
-          initialView: 'dayGridMonth',
-          initialEvents: this.eventList,
-          // eventColor : this.getRandomColor(),
-          weekends: true,
-          editable: true,
-          selectable: true,
-          selectMirror: true,
-          dayMaxEvents: true,
-          select: this.handleDateSelect.bind(this),
-          eventClick: this.handleEventClick.bind(this),
-          eventsSet: this.handleEvents.bind(this),
-          /* you can update a remote database when these fire:
-            eventAdd:
-            eventChange:
-            eventRemove:
-            */
-        };
-      
-  
   }
 
   private createForm() {
     this.reservationForm = this.formBuilder.group({
-      idReservation: [null],
-      idUser: ['', Validators.maxLength(255)],
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required],
-      idTerrain: [null, Validators.required],
-      userId: [null, Validators.required],
-      reservationCourseId: [null],
+      id: [null],
+      date: [null, Validators.required],
       description: [''],
+      patient: [null]
     });
   }
 
   private loadReservations() {
-    // this.reservationService.getAllReservations().subscribe({
-    //   next: (reservations) => {
-    //     this.reservations = reservations;
-    //     this.reservations.forEach((res : ReservationDTO) => {
-    //       this.eventList.push({
-    //         id: res.idReservation.toString(),
-    //         title: res.description,
-    //         start: this.formatDate(res.startDate.toString()),
-    //         end: this.formatDate(res.endDate.toString()),
-    //         color: this.getRandomColor(),
-    //       });
-    //     });
-    //   },
-    //   error: (error) => {
-    //     console.log(error);
-    //     this.messageService.add({
-    //       severity: 'error',
-    //       summary: 'Error',
-    //       detail: error.message,
-    //       life: 3000,
-    //     });
-    //   },
-    //   complete: () => {
-    //     this.calendarOptions = {
-    //       plugins: [
-    //         interactionPlugin,
-    //         dayGridPlugin,
-    //         timeGridPlugin,
-    //         listPlugin,
-    //       ],
-    //       headerToolbar: {
-    //         left: 'prev,next',
-    //         center: 'today',
-    //         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
-    //       },
 
-    //       initialView: 'dayGridMonth',
-    //       initialEvents: this.eventList,
-    //       // eventColor : this.getRandomColor(),
-    //       weekends: true,
-    //       editable: true,
-    //       selectable: true,
-    //       selectMirror: true,
-    //       dayMaxEvents: true,
-    //       select: this.handleDateSelect.bind(this),
-    //       eventClick: this.handleEventClick.bind(this),
-    //       eventsSet: this.handleEvents.bind(this),
-    //       /* you can update a remote database when these fire:
-    //         eventAdd:
-    //         eventChange:
-    //         eventRemove:
-    //         */
-    //     };
-    //   },
-    // });
+    this.reservationService.getAllReservations().subscribe({
+      next: (reservations) => {
+        this.reservations = reservations;
+        this.reservations.forEach((res: ReservationDTO) => {
+          this.eventList.push({
+            id: res?.id?.toString() || '',
+            title: res?.description || "",
+            start: this.formatDate(res?.date) || new Date(),
+            end: this.formatDate(res?.date) || new Date(),
+            color: this.getRandomColor(),
+          });
+
+        });
+
+      },
+      error: (error) => {
+        console.log(error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.message,
+          life: 3000,
+        });
+      },
+      complete: () => {
+        console.log("eventList", this.eventList)
+        this.calendarVisible = true
+      },
+    });
   }
 
   formatDate(dateString: string) {
@@ -170,7 +134,7 @@ export class BookingComponent implements OnInit {
 
   handleWeekendsToggle() {
     const { calendarOptions } = this;
-    if(calendarOptions){
+    if (calendarOptions) {
       calendarOptions.weekends = !calendarOptions.weekends;
     }
   }
@@ -184,54 +148,54 @@ export class BookingComponent implements OnInit {
   }
 
   saveEvent() {
-    // let selectInfo = this.dateInformation;
-    // let title = this.reservationForm.value.description;
-    // const calendarApi = selectInfo.view.calendar;
-    // calendarApi.unselect(); // clear date selection
-    // this.reservationForm.value.startDate = selectInfo.start;
-    // this.reservationForm.value.endDate = selectInfo.end;
-    // this.reservationForm.value.idUser = this.currentUser.idUser;
-    // this.reservationForm.value.userId = this.currentUser.idUser;
-    // if (this.reservationForm.value.idTerrain != undefined) {
-    //   this.reservationForm.value.idTerrain =
-    //     this.reservationForm.value.idTerrain.idTerrain;
-    // }
+    let selectInfo = this.dateInformation;
+    let title = this.reservationForm?.value.description;
+    const calendarApi = selectInfo?.view.calendar;
+    calendarApi?.unselect(); // clear date selection
+    this.reservationForm!.value.date = selectInfo?.start;
+    this.reservationForm!.value.date = selectInfo?.end;
+    // this.reservationForm!.value.id = this.currentUser.id;
+    // this.reservationForm!.value.userId = this.currentUser.idUser;
+    if (this.reservationForm!.value.patient != undefined) {
+      this.reservationForm!.value.patient =
+        this.reservationForm!.value.patient.id
+    }
 
-    // const reservation: ReservationDTO = this.reservationForm.value;
-    // this.reservationService.createReservation(reservation).subscribe(
-    //   (createdIdReservation) => {
-    //     console.log('Reservation created with ID:', createdIdReservation);
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Reservation saved successfully',
-    //       life: 3000,
-    //     });
-    //     // Reset the form after successful submission
-    //     if (title) {
-    //       calendarApi.addEvent({
-    //         id: createEventId(),
-    //         title,
-    //         start: selectInfo.startStr,
-    //         end: selectInfo.endStr,
-    //         allDay: selectInfo.allDay,
-    //         color: this.getRandomColor(),
-    //       });
-    //     }
-    //     this.bookingDescription = undefined;
-    //     this.displayAddEvent = false;
-    //     this.reservationForm.reset();
-    //   },
-    //   (error) => {
-    //     console.error('Error creating reservation:', error);
-    //     this.messageService.add({
-    //       severity: 'error',
-    //       summary: 'Error',
-    //       detail: error,
-    //       life: 3000,
-    //     });
-    //   }
-    // );
+    const reservation: ReservationDTO = this.reservationForm!.value;
+    this.reservationService.createReservation(reservation).subscribe(
+      (createdIdReservation) => {
+        console.log('Reservation created with ID:', createdIdReservation);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Reservation saved successfully',
+          life: 3000,
+        });
+        // Reset the form after successful submission
+        if (title) {
+          calendarApi?.addEvent({
+            id: createEventId(),
+            title,
+            start: selectInfo?.startStr,
+            end: selectInfo?.endStr,
+            allDay: selectInfo?.allDay,
+            color: this.getRandomColor(),
+          });
+        }
+        this.bookingDescription = undefined;
+        this.displayAddEvent = false;
+        this.reservationForm?.reset();
+      },
+      (error) => {
+        console.error('Error creating reservation:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error,
+          life: 3000,
+        });
+      }
+    );
   }
   handleDateSelect(selectInfo: DateSelectArg) {
     this.dateInformation = selectInfo;
@@ -245,22 +209,22 @@ export class BookingComponent implements OnInit {
         `Are you sure you want to delete the event '${clickInfo.event.title}'`
       )
     ) {
-      // this.reservationService.deleteReservation(parseInt(clickInfo.event._def.publicId)).subscribe(res=>{
-      //   this.messageService.add({
-      //     severity: 'success',
-      //     summary: 'Successful',
-      //     detail: 'Reservation deleted successfully',
-      //     life: 3000,
-      //   });
-      // },(error : any) => {
-      //   console.error('Error creating reservation:', error);
-      //   this.messageService.add({
-      //     severity: 'error',
-      //     summary: 'Error',
-      //     detail: error,
-      //     life: 3000,
-      //   });
-      // })
+      this.reservationService.deleteReservation(parseInt(clickInfo.event._def.publicId)).subscribe(res=>{
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Reservation deleted successfully',
+          life: 3000,
+        });
+      },(error : any) => {
+        console.error('Error creating reservation:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error,
+          life: 3000,
+        });
+      })
       clickInfo.event.remove();
     }
   }
@@ -271,6 +235,6 @@ export class BookingComponent implements OnInit {
   }
 
   resetDescription() {
-    this.bookingDescription = undefined;
+    this.reservationForm?.reset()
   }
 }
