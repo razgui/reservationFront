@@ -20,7 +20,7 @@ body {
     }
 }
 .p-sidebar-left{
-    background-color: #3c4b64 !important;
+    background:  radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%) !important;
 }
 .p-sidebar .p-sidebar-header .p-sidebar-close:enabled:hover, .p-sidebar .p-sidebar-header .p-sidebar-icon:enabled:hover{
     color: black !important;
@@ -72,6 +72,7 @@ body {
     flex-direction: row;
     justify-content: center;
 }
+
 .p-sidebar-content{
     position: relative;
     overflow-y: auto;

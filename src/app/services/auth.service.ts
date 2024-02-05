@@ -49,6 +49,11 @@ export class AuthService {
   public storeCurrentUser(){
     return localStorage.setItem('currentUser',this.currentUser) ;
   }
+
+  public getCurrentUser(){
+    return localStorage.getItem('currentUser') ;
+  }
+
   public removeCurrentUser(){
     localStorage.removeItem('currentUser')
   }

@@ -15,6 +15,15 @@ export class PatientService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getPatientNumber(): Observable<any[]> {
+    const url = `${this.apiUrl}/number`;
+    return this.http.get<any[]>(url);
+  }
+
+  getPatientAddedPerMonth(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/PerMonth`);
+  }
+
   createPatient(patient: PatientDTO): Observable<any> {
     return this.http.post<any>(this.apiUrl, patient);
   }

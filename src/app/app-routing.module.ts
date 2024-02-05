@@ -8,11 +8,12 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/auth.guard';
+import { homeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, 
+  
   { path: 'dashboard', component: DashboardComponent ,canActivate: [AuthGuard]},
   {path : 'patient' , component : PatientComponent , canActivate: [AuthGuard]},
   {path : 'schedule' , component : ScheduleComponent , canActivate: [AuthGuard]},

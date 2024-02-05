@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule,HTTP_INTERCEPTORS  } from '@angular/common/http'; // Import HttpClientModule
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { homeComponent } from './home/home.component';
 import {SidebarModule} from 'primeng/sidebar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
@@ -30,11 +30,18 @@ import {TableModule} from 'primeng/table';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import { RegisterComponent } from './register/register.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NavbarSComponent } from './navbar-s/navbar-s.component';
+import { CardComponent } from './card/card.component';
+import { ChartModule } from 'primeng/chart';
+import { CardModule } from 'primeng/card';
+import { AddPatientComponent } from './add-patient/add-patient.component';
+import { SimpleCardComponent } from './simple-card/simple-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    homeComponent,
     PatientComponent,
     DashboardComponent,
     SoinsComponent,
@@ -43,7 +50,12 @@ import { RegisterComponent } from './register/register.component';
     AboutUsComponent,
     BookingComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SidebarComponent,
+    NavbarSComponent,
+    CardComponent,
+    AddPatientComponent,
+    SimpleCardComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +74,9 @@ import { RegisterComponent } from './register/register.component';
     InputTextareaModule,
     PasswordModule,
     TableModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ChartModule,
+    CardModule
   ],
   providers: [
     MessageService,

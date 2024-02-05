@@ -21,11 +21,11 @@
 <div class="dialog-cls">
   <p-dialog
     [(visible)]="displayAddEvent"
-    [style]="{ width: '50vw', height: '25vw' }"
+    [style]="{ width: '50vw', height: '30vw' }"
     [resizable]="true"
   >
-    <ng-template pTemplate="header">
-      Please enter a new title for your booking
+    <ng-template pTemplate="header" style="display: flex;justify-content: center;">
+      Ajouter un Rendez-vous 
     </ng-template>
     <div *ngIf="reservationForm">
       <form [formGroup]="reservationForm">
@@ -95,9 +95,8 @@
         <button
           type="reset"
           (click)="resetDescription()"
-          class="btn btn-outline-danger"
-        >
-          Reset
+          class="btn btn-outline-danger">
+          Réinitialisation
         </button>
         &nbsp; &nbsp;
         <button
@@ -105,7 +104,7 @@
           class="btn btn-outline-primary"
           (click)="saveEvent()"
         >
-          Add Booking
+        Ajouter une réservation
         </button>
       </div>
     </ng-template>

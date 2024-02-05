@@ -24,6 +24,7 @@ export class LoginComponent {
     const userDto = {} as UserDTO;
     userDto.email = this.email;
     userDto.password = this.password;
+    
     this.authService.loginUser(userDto).subscribe({
       next: (res) => {
         this.authService.setToken(res.access_token)

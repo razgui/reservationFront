@@ -1,0 +1,12 @@
+<div class="p-d-flex p-jc-between p-ai-center p-mt-5 p-mb-5 p-w-50">
+    <div class="p-mr-5">
+        <p-card>
+            <ng-template pTemplate="title">
+                <h3>{{title}}</h3>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-chart type="{{chartType}}" [data]="infos"></p-chart>
+            </ng-template>
+        </p-card>
+    </div>
+</div>

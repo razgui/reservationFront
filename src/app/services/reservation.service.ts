@@ -21,6 +21,18 @@ export class ReservationService {
     return this.httpClient.get<ReservationDTO>(`${this.apiUrl}/${id}`);
   }
 
+  getReservationSizeToday(): Observable<BigInteger> {
+    return this.httpClient.get<BigInteger>(`${this.apiUrl}/number`);
+  }
+
+  getReservationPerMonth(): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/PerMonth`);
+  }
+
+  getReservationBookingTodaySize(): Observable<BigInteger> {
+    return this.httpClient.get<BigInteger>(`${this.apiUrl}/bookingNumber`);
+  }
+
   createReservation(reservationDTO: ReservationDTO): Observable<number> {
     return this.httpClient.post<number>(this.apiUrl, reservationDTO);
   }

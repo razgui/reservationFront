@@ -1,0 +1,16 @@
+<div class="sidebar-container">
+    <div class="container"><img src="../../assets/images/rendez_vous.png" ></div>
+    <div class="sidebar-logo"><i class="fas fa-user mx-2"></i> {{user}} </div>
+    <ul class="sidebar-navigation" routerLinkActive="active">
+      <li class="header" style="font-size: 1rem; font-weight: bold;"> Menu </li>
+      <li (click)="navigateToScreen('accueil') "><a ><i class="fa fa-home mx-2 custom-cursor"></i> Accueil </a></li>
+      <li (click)="navigateToScreen('schedule') "><a ><i class="fas fa-copy mx-2 custom-cursor"></i> Schedule </a></li>
+      <li class="header"  style="font-size: 1rem; font-weight: bold;"> Gestion des Patients et soins  </li>  
+      <li (click)="navigateToScreen('patient') "><a ><i class="fas fa-list-ol mx-2 custom-cursor"></i> Patient </a></li>
+      <li (click)="navigateToScreen('soins') "><a ><i class="fas fa-redo-alt mx-2 custom-cursor"></i> Soins </a></li>
+      <!-- <li (click)="navigateToScreen('aboutus') "><a ><i class="fas fa-tasks mx-2 "></i> About us </a></li> -->
+    </ul>
+  </div>
+  
+  
+  

@@ -1,1 +1,22 @@
-<p>dashboard works!</p>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <app-simple-card [title]='" Rendez-vous pour aujourd hui"' [nbre]='reservationSize' [logo]='"pi-calendar"' [style]='"linear-gradient(0deg, rgba(34,193,195,1) 22%, rgba(45,81,253,1) 92%)"' ></app-simple-card>
+        </div>
+        <div class="col-md-4">
+            <app-simple-card [title]='" Rendez vous ajouté aujourd hui"' [nbre]='resrvationBookedToday' [logo]='"pi-calendar-plus"' [style]='"linear-gradient(0deg, rgba(250,167,0,1) 22%, rgba(231,94,94,1) 98%)"'></app-simple-card>
+        </div>
+        <div class="col-md-4">
+            <app-simple-card [title]='" Nombre des Patients"' [nbre]='patientNumber' [style]='"linear-gradient(0deg, rgba(129,228,242,1) 24%, rgba(112,238,26,1) 84%)"'></app-simple-card>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <app-card [title]='"Nombre de rendez-vous prise par mois"' [infos]='lineData' [chartType]='"line"'></app-card>
+        </div>
+        <div class="col-md-6">
+            <app-card [title]='"Nombre des patient ajouté par mois"' [infos]='userData' [chartType]='"bar"'></app-card>
+        </div>
+    </div>
+</div>

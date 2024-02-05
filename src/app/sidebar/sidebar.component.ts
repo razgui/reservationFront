@@ -1,35 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
-export class NavbarComponent {
-  display : boolean = false
-  themeMode: string = ""
-  themeChecked : boolean = false
-  constructor(private router : Router,private authService : AuthService){
+export class SidebarComponent implements OnInit {
+  @Output() toggleSideBarForMe : EventEmitter<any>=new EventEmitter();
+  user:any;
+  constructor(private router : Router,private authService:AuthService) { }
 
+  ngOnInit(): void {
+    this.user= this.authService.getCurrentUser();
   }
 
-  logOut(){
-    this.authService.logout()
-    this.router.navigate([''])
-  }
   navigateToScreen(event : string){
     switch(event){
-      case "home" :
+      case "accueil" :
         this.router.navigate(['/dashboard']);
         break;
       case "patient" :
         this.router.navigate(['/patient']);
-        break;
-      case "dashboard" :
-        this.router.navigate(['']);
         break;
       case "schedule" :
         this.router.navigate(['/schedule']);
@@ -41,8 +34,7 @@ export class NavbarComponent {
           this.router.navigate(['/aboutus']);
           break;
     }
-    this.display = false
+    this.toggleSideBarForMe.emit();
   }
-
 
 }

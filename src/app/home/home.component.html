@@ -1,0 +1,5 @@
+<p-sidebar [(visible)]="sideBarOpen" position="left">
+    <app-sidebar (toggleSideBarForMe)="sideBarToggler($event)"></app-sidebar>
+</p-sidebar>
+<app-navbar-s (toggleSideBarForMe)="sideBarToggler($event)"></app-navbar-s>
+<div class="date"><i class="fas fa-calendar-alt mx-2"></i> {{ date | date:'dd/MM/yyyy' }}</div> 
