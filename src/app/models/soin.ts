@@ -4,4 +4,5 @@ export interface SoinDTO {
   price: number;
   description: string;
   reservationID?: number;
+  soin : number;
 }

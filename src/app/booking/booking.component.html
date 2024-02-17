@@ -85,6 +85,31 @@
                 </div>
               </ng-template>
             </p-dropdown>
+        <!--Ajouter soin dropdown-->
+          </div>
+          <div class="p-field p-col-12 p-md-12 f-cls">
+            <p-dropdown float-input-d [options]="soinList" formControlName="soin" optionLabel="name" 
+              [showClear]="true" placeholder="Select Soin">
+              <ng-template pTemplate="filter" let-options="options">
+                <div class="flex p-3">
+                  <div class="p-inputgroup" (click)="$event.stopPropagation()">
+                    <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+                    <input type="text" pInputText placeholder="Filter" (keyup)="options.filter($event)">
+                  </div>
+                  <!-- <button pButton icon="pi pi-times" class="ml-3" (click)="myResetFunction(options)"></button> -->
+                </div>
+              </ng-template>
+              <ng-template pTemplate="selectedItem" let-patient pTemplate="item">
+                <div class="patient-item patient-item-value">
+                  <div>{{patient.name}}</div>
+                </div>
+              </ng-template>
+              <ng-template let-patient pTemplate="item">
+                <div>
+                  {{patient.name}}
+                </div>
+              </ng-template>
+            </p-dropdown>
         
           </div>
         </div>

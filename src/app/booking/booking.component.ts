@@ -14,6 +14,7 @@ import { PatientDTO } from '../models/patient.dto';
 import { PatientService } from '../services/patient.service';
 import { ReservationDTO } from '../models/reservation.model';
 import { ReservationService } from '../services/reservation.service';
+import { SoinService } from '../services/soin.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class BookingComponent implements OnInit {
   reservationForm: FormGroup | undefined;
   thumbnail: any;
   currentUser: any;
+  soinList : any[]=[]
   eventList: EventInput[] = [];
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -43,6 +45,7 @@ export class BookingComponent implements OnInit {
     private datePipe: DatePipe,
     private patientService: PatientService,
     private reservationService: ReservationService,
+    private soinService : SoinService
   ) {
     this.loadReservations();
     this.createForm();
@@ -61,7 +64,7 @@ export class BookingComponent implements OnInit {
 
       initialView: 'dayGridMonth',
       initialEvents: this.eventList,
-      // eventColor : this.getRandomColor(),
+      eventColor : this.getRandomColor(),
       weekends: true,
       editable: true,
       selectable: true,
@@ -78,7 +81,9 @@ export class BookingComponent implements OnInit {
       this.patientList = res
       console.log(this.patientList)
     })
-
+    this.soinService.getSoins().subscribe(res=>{
+      this.soinList = res
+    })
   }
 
   private createForm() {
@@ -86,7 +91,8 @@ export class BookingComponent implements OnInit {
       id: [null],
       date: [null, Validators.required],
       description: [''],
-      patient: [null]
+      patient: [null],
+      soin:[null, Validators.required]
     });
   }
 
@@ -160,8 +166,11 @@ export class BookingComponent implements OnInit {
       this.reservationForm!.value.patient =
         this.reservationForm!.value.patient.id
     }
-
+    if(this.reservationForm.value.soin != undefined){
+      this.reservationForm.value.soin = this.reservationForm.value.soin.id
+    }
     const reservation: ReservationDTO = this.reservationForm!.value;
+    console.log("---json--",reservation)
     this.reservationService.createReservation(reservation).subscribe(
       (createdIdReservation) => {
         console.log('Reservation created with ID:', createdIdReservation);
@@ -197,6 +206,7 @@ export class BookingComponent implements OnInit {
       }
     );
   }
+
   handleDateSelect(selectInfo: DateSelectArg) {
     this.dateInformation = selectInfo;
     this.displayAddEvent = true;
